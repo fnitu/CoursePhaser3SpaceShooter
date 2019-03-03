@@ -3,6 +3,9 @@ var config = {
   width: 480,
   height: 640,
   backgroundColor: "black",
+  input: {
+    gamepad: true  // add to enable gamepad input
+  },
   physics: {
     default: "arcade",
     arcade: {

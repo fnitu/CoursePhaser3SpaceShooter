@@ -167,23 +167,37 @@ class SceneMain extends Phaser.Scene {
   }
 
   update() {
+    // visit https://html5gamepad.com/ to check if the gamepads are working
+    if (this.input.gamepad.total) {
+      //player uses first gamepad
+      var pad = this.input.gamepad.getPad(0);
+    }
+
+    var xAxis = pad ? pad.axes[0].getValue(0) : 0;
+    var yAxis = pad ? pad.axes[1].getValue(0) : 0;
+
+    var R2 = pad ? pad.R2 : 0;
 
     if (!this.player.getData("isDead")) {
       this.player.update();
-      if (this.keyW.isDown) {
+      // up
+      if (this.keyW.isDown || yAxis < 0 ) {
         this.player.moveUp();
       }
-      else if (this.keyS.isDown) {
+      // down
+      else if (this.keyS.isDown || yAxis > 0 ) {
         this.player.moveDown();
       }
-      if (this.keyA.isDown) {
+      //left
+      if (this.keyA.isDown || xAxis < 0 ) {
         this.player.moveLeft();
       }
-      else if (this.keyD.isDown) {
+      //right
+      else if (this.keyD.isDown || xAxis > 0) {
         this.player.moveRight();
       }
 
-      if (this.keySpace.isDown) {
+      if (this.keySpace.isDown || R2) {
         this.player.setData("isShooting", true);
       }
       else {
